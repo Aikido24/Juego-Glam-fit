@@ -61,5 +61,9 @@ while True:
     pg.display.update()
 
     my_time()
-    print(current_time)
+    if not pg.mixer.music.get_busy():
+        data.close()
+        pg.quit()
+        exit()
+        
     clock.tick(60)
