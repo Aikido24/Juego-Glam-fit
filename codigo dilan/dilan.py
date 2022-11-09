@@ -6,17 +6,21 @@ canciones=["ACDC-Thunderstruck"]
 pg.mixer.music.load(f"./audios/{canciones[0]}.mp3")
 Partitura=""
 nota=""
-play_song=""
+play_song=False
+lista_notas=[]
+tiempo=pg.time.get_ticks
 #variables#
 size=(800,600)
 screen=pg.display.set_mode(size)
+
+def music_time():
+    tiempo=pg.time.get_ticks()/100
+    print (tiempo)
 #tiempo
 clock=pg.time.Clock()
 current_time=0
 
-def my_time():
-    global current_time
-    current_time= int(pg.time.get_ticks()/100)
+
 #music
 button1 =False
 button2 =False
@@ -76,9 +80,7 @@ while True:
             pg.draw.circle(screen,'Gray',(500,500),50)
         if dibujo_nota[1] =="3\n":
             pg.draw.circle(screen,'Gray',(700,500),50)
-
+    music_time()
     pg.display.update()
-
-    my_time()
         
     clock.tick(60)
