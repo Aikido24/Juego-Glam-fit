@@ -45,16 +45,12 @@ def events():
         if event.type == pg.KEYDOWN:
             if event.key == pg.K_q:
                 button1 =True
-                data.write(f'{current_time};0\n')
             if event.key == pg.K_w:
                 button2 =True
-                data.write(f'{current_time};1\n')
             if event.key == pg.K_e:
                 button3 =True
-                data.write(f'{current_time};2\n')
             if event.key == pg.K_r:
                 button4 =True
-                data.write(f'{current_time};3\n')
         if event.type == pg.KEYUP:
             if event.key == pg.K_q:
                 button1 =False
@@ -68,6 +64,7 @@ while True:
     events()
 
     screen.fill("White")
+# zona de dibujo
     pg.draw.circle(screen,'Red',(100,500),50)
     pg.draw.circle(screen,'Red',(300,500),50)
     pg.draw.circle(screen,'Red',(500,500),50)
