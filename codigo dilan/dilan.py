@@ -62,21 +62,21 @@ def events():
                 button4 =False
 while True:
     events()
-
-    screen.fill("White")
+    screen.fill("Black")
 # zona de dibujo
-    pg.draw.circle(screen,'Red',(100,500),50)
-    pg.draw.circle(screen,'Red',(300,500),50)
-    pg.draw.circle(screen,'Red',(500,500),50)
-    pg.draw.circle(screen,'Red',(700,500),50)
-    if button1:
-        pg.draw.circle(screen,'#C71EE8',(100,500),50)
-    if button2:
-        pg.draw.circle(screen,'#F28C1F',(300,500),50)
-    if button3:
-        pg.draw.circle(screen,'#561FF2',(500,500),50)
-    if button4:
-        pg.draw.circle(screen,'#561FF2',(700,500),50)
+    print (nota.split(';'))
+    print (len(nota.split(';')))
+    dibujo_nota= nota.split(';')
+    if len(dibujo_nota)==2:
+        if dibujo_nota[1] =="0\n":
+            pg.draw.circle(screen,'Gray',(100,500),50)
+        if dibujo_nota[1] =="1\n":
+            pg.draw.circle(screen,'Gray',(300,500),50)
+        if dibujo_nota[1] =="2\n":
+            pg.draw.circle(screen,'Gray',(500,500),50)
+        if dibujo_nota[1] =="3\n":
+            pg.draw.circle(screen,'Gray',(700,500),50)
+
     pg.display.update()
 
     my_time()
