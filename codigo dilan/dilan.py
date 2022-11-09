@@ -1,6 +1,12 @@
 import pygame as pg 
 from sys import exit
 pg.init()
+# canciones
+canciones=["ACDC-Thunderstruck"]
+pg.mixer.music.load(f"./audios/{canciones[0]}.mp3")
+Partitura=""
+nota=""
+play_song=""
 #variables#
 size=(800,600)
 screen=pg.display.set_mode(size)
@@ -12,21 +18,30 @@ def my_time():
     global current_time
     current_time= int(pg.time.get_ticks()/100)
 #music
-song ='ACDC-Thunderstruck'
-pg.mixer.music.load(f"./audios/{song}.mp3") 
-data = open(f"data_{song}.txt", "a")
 button1 =False
 button2 =False
 button3 =False
 button4 =False
 #Funcion de eventos#
+time_music=pg.USEREVENT+1
+pg.time.set_timer(time_music,100)
 def events():
-    global button1 , button2 , button3 , button4
+    global button1 , button2 , button3 , button4 , Partitura , nota , play_song
     for event in pg.event.get():
         if event.type==pg.QUIT:
             pg.quit()
             exit()
-        
+        if event.type==pg.KEYDOWN:
+            if event.key==pg.K_SPACE:
+                pg.mixer.music.play()
+                Partitura=open(f"data_{canciones[0]}.txt" , "r")
+                play_song=True
+
+        if play_song:            
+            if event.type==time_music:
+                nota=Partitura.readline()
+                print(nota)
+            
         if event.type == pg.KEYDOWN:
             if event.key == pg.K_q:
                 button1 =True
@@ -49,7 +64,6 @@ def events():
                 button3 =False
             if event.key == pg.K_r:
                 button4 =False
-pg.mixer.music.play()
 while True:
     events()
 
@@ -69,9 +83,5 @@ while True:
     pg.display.update()
 
     my_time()
-    if not pg.mixer.music.get_busy():
-        data.close()
-        pg.quit()
-        exit()
         
     clock.tick(60)
