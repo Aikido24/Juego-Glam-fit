@@ -12,7 +12,11 @@ def my_time():
     global current_time
     current_time= int(pg.time.get_ticks()/100)
 #music
+<<<<<<< HEAD
 song ='I’m-So-Sorry'
+=======
+song ='ACDC-Thunderstruck'
+>>>>>>> d54287c4c76e21662a18041a0032498fc79f2362
 pg.mixer.music.load(f"./audios/{song}.mp3") 
 data = open(f"data_{song}.txt", "a")
 button1 =False
