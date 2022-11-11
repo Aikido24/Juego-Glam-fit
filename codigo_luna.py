@@ -2,7 +2,7 @@ import pygame as pg
 from sys import exit
 pg.init()
 #canciones 
-canciones=["I’m-So-Sorry"]
+canciones=["I’m-So-Sorry","smooth"]
 pg.mixer.music.load(f"./audios/{canciones[0]}.mp3")
 Partitura=""
 nota=""
