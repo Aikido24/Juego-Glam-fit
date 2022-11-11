@@ -36,25 +36,26 @@ def events():
         if play_song:
             if event.type==time_Music:
                 numero=music_time()-centecimas
-                
-                dibujo_nota= nota.split(';')
-                if int(dibujo_nota[0])-20== int(numero):
+                if nota != "":
+                    dibujo_nota= nota.split(';')
+                    if int(dibujo_nota[0])-20<= int(numero):
 
-                    if dibujo_nota[1] =="0\n":
-                        lista_notas.append([100,0])
-                       
-                    if dibujo_nota[1] =="1\n":
-                       lista_notas.append([300,0]) 
-                    
-                    if dibujo_nota[1] =="2\n":
-                        lista_notas.append([500,0])
+                        if dibujo_nota[1] =="0\n":
+                            lista_notas.append([100,0])
                         
-                    if dibujo_nota[1] =="3\n":
-                        lista_notas.append([700,0])
-                    
-                    nota=Partitura.readline()    
-                print(lista_notas)
-                print(int(dibujo_nota[0]))
+                        if dibujo_nota[1] =="1\n":
+                            lista_notas.append([300,0]) 
+                        
+                        if dibujo_nota[1] =="2\n":
+                            lista_notas.append([500,0])
+                            
+                        if dibujo_nota[1] =="3\n":
+                            lista_notas.append([700,0])
+                        
+                        nota=Partitura.readline()    
+                    print(nota)
+                #print(int(dibujo_nota[0]))
+               
 
 
 
@@ -79,7 +80,10 @@ while True:
         for i in range(len(lista_notas)):
             pg.draw.circle(screen,"Blue",lista_notas[i],50)
             lista_notas[i][1]+=5
-            print(i)
     music_time()
     pg.display.update()
+    for i in range(len(lista_notas)):
+            if lista_notas[i][1]>800:
+                lista_notas.pop(i)
+                break 
     clock.tick(60)
