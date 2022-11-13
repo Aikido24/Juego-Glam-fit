@@ -3,9 +3,9 @@ from sys import exit
 
 
 pg.init()
-pg.display.set_caption('ACDC-Thunderstruck')
+pg.display.set_caption('Iron-Man')
 #canciones 
-canciones=["ACDC-Thunderstruck"]
+canciones=["Iron-Man"]
 pg.mixer.music.load(f"./audios/{canciones[0]}.mp3")
 Partitura=""
 nota=""
