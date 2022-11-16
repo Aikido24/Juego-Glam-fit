@@ -47,26 +47,37 @@ def events():
                         else:
                         # print (lista_notas_0[0][1])
                             error.play()
+                        lista_notas_0.pop(0)
                     else:
                         # print (lista_notas_0[0][1])
                         error.play()
                 if event.key == pg.K_w:
-                    if len (lista_notas_1)>0 and (lista_notas_1[0][1]>490 or lista_notas_1[0][1]<520):
-                        pass 
+                    if len (lista_notas_1)>0:
+                        if (lista_notas_1[0][1]>430 and lista_notas_1[0][1]<550):
+                            pass 
+                        else:
+                        # print (lista_notas_0[0][1])
+                            error.play()
                     else:
                         # print (lista_notas_0[0][1])
                         error.play()
                 if event.key == pg.K_e:
-                    if len (lista_notas_2)>0 and (lista_notas_2[0][1]>490 or lista_notas_2[0][1]<520):
-                        pass 
+                    if len (lista_notas_2)>0:
+                        if (lista_notas_2[0][1]>430 and lista_notas_2[0][1]<550):
+                            pass 
+                        else:
+                        # print (lista_notas_0[0][1])
+                            error.play()
                     else:
                         # print (lista_notas_0[0][1])
                         error.play()
                 if event.key == pg.K_r:
-                    if len (lista_notas_3)>0 and (lista_notas_3[0][1]>490 or lista_notas_3[0][1]<520):
-                        pass 
+                    if len (lista_notas_3)>0:
+                        if (lista_notas_3[0][1]>430 and lista_notas_3[0][1]<550):
+                            pass 
+                        else:
+                            error.play()
                     else:
-                        # print (lista_notas_0[0][1])
                         error.play()
             if event.type==time_Music:
                 numero=music_time()-centecimas
@@ -135,21 +146,25 @@ while True:
     for i in range(len(lista_notas_0)):
             if lista_notas_0[i][1]>800:
                 lista_notas_0.pop(i)
+                error.play()
                 break 
 
     for i in range(len(lista_notas_1)):
             if lista_notas_1[i][1]>800:
                 lista_notas_1.pop(i)
+                error.play()
                 break
 
     for i in range(len(lista_notas_2)):
             if lista_notas_2[i][1]>800:
                 lista_notas_2.pop(i)
+                error.play()
                 break 
 
     for i in range(len(lista_notas_3)):
             if lista_notas_3[i][1]>800:
                 lista_notas_3.pop(i)
+                error.play()
                 break 
             
     clock.tick(60)
