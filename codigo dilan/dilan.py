@@ -41,13 +41,33 @@ def events():
         if play_song:
             if event.type==pg.KEYDOWN:          
                 if event.key == pg.K_q:
-                    error.play()
+                    if len (lista_notas_0)>0:
+                        if (lista_notas_0[0][1]>430 and lista_notas_0[0][1]<550):
+                            pass 
+                        else:
+                        # print (lista_notas_0[0][1])
+                            error.play()
+                    else:
+                        # print (lista_notas_0[0][1])
+                        error.play()
                 if event.key == pg.K_w:
-                    error.play()
+                    if len (lista_notas_1)>0 and (lista_notas_1[0][1]>490 or lista_notas_1[0][1]<520):
+                        pass 
+                    else:
+                        # print (lista_notas_0[0][1])
+                        error.play()
                 if event.key == pg.K_e:
-                    error.play()
+                    if len (lista_notas_2)>0 and (lista_notas_2[0][1]>490 or lista_notas_2[0][1]<520):
+                        pass 
+                    else:
+                        # print (lista_notas_0[0][1])
+                        error.play()
                 if event.key == pg.K_r:
-                    error.play()
+                    if len (lista_notas_3)>0 and (lista_notas_3[0][1]>490 or lista_notas_3[0][1]<520):
+                        pass 
+                    else:
+                        # print (lista_notas_0[0][1])
+                        error.play()
             if event.type==time_Music:
                 numero=music_time()-centecimas
                 if nota != "":
@@ -67,7 +87,7 @@ def events():
                             lista_notas_3.append([700,0])
                         
                         nota=Partitura.readline()    
-                    print(nota)
+                    # print(nota)
                 #print(int(dibujo_nota[0]))
                
 
@@ -101,7 +121,6 @@ while True:
         for i in range(len(lista_notas_1)):
             pg.draw.circle(screen,"Red",lista_notas_1[i],50)
             lista_notas_1[i][1]+=5
-
     if len (lista_notas_2)>0:
         for i in range(len(lista_notas_2)):
             pg.draw.circle(screen,"Yellow",lista_notas_2[i],50)
@@ -134,3 +153,4 @@ while True:
                 break 
             
     clock.tick(60)
+    # print (lista_notas_0)
