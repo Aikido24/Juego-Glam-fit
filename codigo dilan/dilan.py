@@ -4,6 +4,7 @@ pg.init()
 #canciones 
 canciones=["Iron-man"]
 pg.mixer.music.load(f"./audios/{canciones[0]}.mp3")
+error= pg.mixer.Sound(f"./sounds/error.wav")
 Partitura=""
 nota=""
 play_song=False
@@ -25,7 +26,7 @@ time_Music=pg.USEREVENT +1
 pg.time.set_timer(time_Music,100)
 def events(): 
     global Partitura , nota , play_song , centecimas 
-    global lista_notas_0,lista_notas_1,lista_notas_2,lista_notas_3
+    global lista_notas_0,lista_notas_1,lista_notas_2,lista_notas_3, error
     for event in pg.event.get():
         if event.type==pg.QUIT:
             pg.quit()
@@ -38,6 +39,15 @@ def events():
                 play_song=True 
                 nota=Partitura.readline() 
         if play_song:
+            if event.type==pg.KEYDOWN:          
+                if event.key == pg.K_q:
+                    error.play()
+                if event.key == pg.K_w:
+                    pass
+                if event.key == pg.K_e:
+                    pass
+                if event.key == pg.K_r:
+                    pass
             if event.type==time_Music:
                 numero=music_time()-centecimas
                 if nota != "":
@@ -80,14 +90,47 @@ while True:
             pg.draw.circle(screen,'Red',(500,500),50)
         if dibujo_nota[1] =="3\n":
             pg.draw.circle(screen,'Red',(700,500),50)
+
+
     if len (lista_notas_0)>0:
         for i in range(len(lista_notas_0)):
             pg.draw.circle(screen,"Blue",lista_notas_0[i],50)
             lista_notas_0[i][1]+=5
+
+    if len (lista_notas_1)>0:
+        for i in range(len(lista_notas_1)):
+            pg.draw.circle(screen,"Red",lista_notas_1[i],50)
+            lista_notas_1[i][1]+=5
+
+    if len (lista_notas_2)>0:
+        for i in range(len(lista_notas_2)):
+            pg.draw.circle(screen,"Yellow",lista_notas_2[i],50)
+            lista_notas_2[i][1]+=5
+
+    if len (lista_notas_3)>0:
+        for i in range(len(lista_notas_3)):
+            pg.draw.circle(screen,"Green",lista_notas_3[i],50)
+            lista_notas_3[i][1]+=5
     music_time()
     pg.display.update()
     for i in range(len(lista_notas_0)):
             if lista_notas_0[i][1]>800:
                 lista_notas_0.pop(i)
                 break 
+
+    for i in range(len(lista_notas_1)):
+            if lista_notas_1[i][1]>800:
+                lista_notas_1.pop(i)
+                break
+
+    for i in range(len(lista_notas_2)):
+            if lista_notas_2[i][1]>800:
+                lista_notas_2.pop(i)
+                break 
+
+    for i in range(len(lista_notas_3)):
+            if lista_notas_3[i][1]>800:
+                lista_notas_3.pop(i)
+                break 
+            
     clock.tick(60)
