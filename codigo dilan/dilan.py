@@ -43,11 +43,11 @@ def events():
                 if event.key == pg.K_q:
                     error.play()
                 if event.key == pg.K_w:
-                    pass
+                    error.play()
                 if event.key == pg.K_e:
-                    pass
+                    error.play()
                 if event.key == pg.K_r:
-                    pass
+                    error.play()
             if event.type==time_Music:
                 numero=music_time()-centecimas
                 if nota != "":
