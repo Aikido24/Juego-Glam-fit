@@ -1,23 +1,35 @@
 import pygame as pg 
 from sys import exit
+
 pg.init()
+#variables#
+size=(800,600)
+screen=pg.display.set_mode(size)
+clock=pg.time.Clock()
+
 #fondos
-fondo = pg.image.load('./imagenes/FONDO01.png')
+fondo = pg.image.load('./imagenes/FONDO01.png').convert()
+
 posicion= (0,0)
 
-boton1= pg.image.load('./imagenes/BOTONES/AZUL/01.png')
+boton1= pg.image.load('./imagenes/BOTONES/AZUL/01.png').convert_alpha()
 posicion1= (150,450)
-boton2= pg.image.load('./imagenes/BOTONES/NARANJA/01.png')
+boton2= pg.image.load('./imagenes/BOTONES/NARANJA/01.png').convert_alpha()
 posicion2= (250,450)
-boton3= pg.image.load('./imagenes/BOTONES/ROJO/01.png')
+boton3= pg.image.load('./imagenes/BOTONES/ROJO/01.png').convert_alpha()
 posicion3= (350,450)
-boton4= pg.image.load('./imagenes/BOTONES/VERDE/01.png')
+boton4= pg.image.load('./imagenes/BOTONES/VERDE/01.png').convert_alpha()
 posicion4= (450,450)
 
-boton1_p= pg.image.load('./imagenes/BOTONES/AZUL/02.png')
-boton2_p= pg.image.load('./imagenes/BOTONES/NARANJA/02.png')
-boton3_p= pg.image.load('./imagenes/BOTONES/ROJO/02.png')
-boton4_p= pg.image.load('./imagenes/BOTONES/VERDE/02.png')
+boton1_p= pg.image.load('./imagenes/BOTONES/AZUL/02.png').convert_alpha()
+boton2_p= pg.image.load('./imagenes/BOTONES/NARANJA/02.png').convert_alpha()
+boton3_p= pg.image.load('./imagenes/BOTONES/ROJO/02.png').convert_alpha()
+boton4_p= pg.image.load('./imagenes/BOTONES/VERDE/02.png').convert_alpha()
+
+nota1= pg.image.load('./imagenes/BOTONES/AZUL/03.png').convert_alpha()
+nota2= pg.image.load('./imagenes/BOTONES/NARANJA/03.png').convert_alpha()
+nota3= pg.image.load('./imagenes/BOTONES/ROJO/03.png').convert_alpha()
+nota4= pg.image.load('./imagenes/BOTONES/VERDE/03.png').convert_alpha()
 
 b1=False
 b2=False
@@ -40,10 +52,7 @@ centecimas=0
 def music_time():
     tiempo=pg.time.get_ticks()/100
     return tiempo
-#variables#
-size=(800,600)
-screen=pg.display.set_mode(size)
-clock=pg.time.Clock()
+
 
 #Funcion de eventos# 
 time_Music=pg.USEREVENT +1
@@ -126,16 +135,16 @@ def events():
                     if int(dibujo_nota[0])-20<= int(numero):
 
                         if dibujo_nota[1] =="0\n":
-                            lista_notas_0.append([100,0])
+                            lista_notas_0.append([150,0])
                         
                         if dibujo_nota[1] =="1\n":
-                            lista_notas_1.append([300,0]) 
+                            lista_notas_1.append([250,0]) 
                         
                         if dibujo_nota[1] =="2\n":
-                            lista_notas_2.append([500,0])
+                            lista_notas_2.append([350,0])
                             
                         if dibujo_nota[1] =="3\n":
-                            lista_notas_3.append([700,0])
+                            lista_notas_3.append([450,0])
                         
                         nota=Partitura.readline()    
                     # print(nota)
@@ -177,21 +186,21 @@ while True:
 
     if len (lista_notas_0)>0:
         for i in range(len(lista_notas_0)):
-            pg.draw.circle(screen,"Blue",lista_notas_0[i],50)
+            screen.blit(nota1,lista_notas_0[i])
             lista_notas_0[i][1]+=5
 
     if len (lista_notas_1)>0:
         for i in range(len(lista_notas_1)):
-            pg.draw.circle(screen,"Red",lista_notas_1[i],50)
+            screen.blit(nota2,lista_notas_1[i])
             lista_notas_1[i][1]+=5
     if len (lista_notas_2)>0:
         for i in range(len(lista_notas_2)):
-            pg.draw.circle(screen,"Yellow",lista_notas_2[i],50)
+            screen.blit(nota3,lista_notas_2[i])
             lista_notas_2[i][1]+=5
 
     if len (lista_notas_3)>0:
         for i in range(len(lista_notas_3)):
-            pg.draw.circle(screen,"Green",lista_notas_3[i],50)
+            screen.blit(nota4,lista_notas_3[i])
             lista_notas_3[i][1]+=5
     music_time()
     pg.display.update()
