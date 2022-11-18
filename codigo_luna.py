@@ -37,7 +37,7 @@ b3=False
 b4=False
 
 #canciones 
-canciones=["Iron-man"]
+canciones=["smooth"]
 pg.mixer.music.load(f"./audios/{canciones[0]}.mp3")
 error= pg.mixer.Sound(f"./sounds/error.wav")
 error.set_volume(0.2)
@@ -78,11 +78,11 @@ def events():
                     b1 = True
                     if len (lista_notas_0)>0:
                         if (lista_notas_0[0][1]>430 and lista_notas_0[0][1]<550):
-                            pass 
+                            lista_notas_0.pop(0)
                         else:
                         # print (lista_notas_0[0][1])
                             error.play()
-                        lista_notas_0.pop(0)
+                        
                     else:
                         # print (lista_notas_0[0][1])
                         error.play()
@@ -90,11 +90,11 @@ def events():
                     b2 = True
                     if len (lista_notas_1)>0:
                         if (lista_notas_1[0][1]>430 and lista_notas_1[0][1]<550):
-                            pass 
+                            lista_notas_1.pop(0)
                         else:
                         # print (lista_notas_0[0][1])
                             error.play()
-                        lista_notas_1.pop(0)
+                        
                     else:
                         # print (lista_notas_0[0][1])
                         error.play()
@@ -102,7 +102,7 @@ def events():
                     b3 = True
                     if len (lista_notas_2)>0:
                         if (lista_notas_2[0][1]>430 and lista_notas_2[0][1]<550):
-                            pass 
+                            lista_notas_2.pop(0)
                         else:
                         # print (lista_notas_0[0][1])
                             error.play()
@@ -113,7 +113,7 @@ def events():
                     b4 = True
                     if len (lista_notas_3)>0:
                         if (lista_notas_3[0][1]>430 and lista_notas_3[0][1]<550):
-                            pass 
+                            lista_notas_3.pop(0) 
                         else:
                             error.play()
                     else:
@@ -172,18 +172,6 @@ while True:
     if b4:
         screen.blit(boton4_p,posicion4)
 
-    # dibujo_nota= nota.split(';')
-    # if len(dibujo_nota)==2:
-    #     if dibujo_nota[1] =="0\n":
-    #         pg.draw.circle(screen,'Red',(100,500),50)
-    #     if dibujo_nota[1] =="1\n":
-    #         pg.draw.circle(screen,'Red',(300,500),50)
-    #     if dibujo_nota[1] =="2\n":
-    #         pg.draw.circle(screen,'Red',(500,500),50)
-    #     if dibujo_nota[1] =="3\n":
-    #         pg.draw.circle(screen,'Red',(700,500),50)
-
-
     if len (lista_notas_0)>0:
         for i in range(len(lista_notas_0)):
             screen.blit(nota1,lista_notas_0[i])
@@ -206,25 +194,25 @@ while True:
     pg.display.update()
 
     for i in range(len(lista_notas_0)):
-            if lista_notas_0[i][1]>800:
+            if lista_notas_0[i][1]>555:
                 lista_notas_0.pop(i)
                 error.play()
                 break 
 
     for i in range(len(lista_notas_1)):
-            if lista_notas_1[i][1]>800:
+            if lista_notas_1[i][1]>555:
                 lista_notas_1.pop(i)
                 error.play()
                 break
 
     for i in range(len(lista_notas_2)):
-            if lista_notas_2[i][1]>800:
+            if lista_notas_2[i][1]>555:
                 lista_notas_2.pop(i)
                 error.play()
                 break 
 
     for i in range(len(lista_notas_3)):
-            if lista_notas_3[i][1]>800:
+            if lista_notas_3[i][1]>555:
                 lista_notas_3.pop(i)
                 error.play()
                 break 
