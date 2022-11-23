@@ -6,11 +6,12 @@ pg.init()
 size=(800,600)
 screen=pg.display.set_mode(size)
 clock=pg.time.Clock()
+posicion_cancion=0
 
 #fondos
 tex_font = pg.font.Font(None,50)
 fondo = pg.image.load('./imagenes/FONDO01.png').convert()
-
+fondo_menu=pg.image.load("./imagenes/MENU/BACKGROUN ROCK CLASS.png").convert_alpha()
 posicion= (0,0)
 barra_de_puntaje=pg.image.load("./imagenes/BARRA VS.png").convert_alpha()
 boton1= pg.image.load('./imagenes/BOTONES/AZUL/01.png').convert_alpha()
@@ -38,8 +39,9 @@ b3=False
 b4=False
 
 #canciones 
-canciones=["smooth"]
-pg.mixer.music.load(f"./audios/{canciones[0]}.mp3")
+canciones=["smooth","I’m-So-Sorry"]
+numero_cancion=0
+pg.mixer.music.load(f"./audios/{canciones[numero_cancion]}.mp3")
 error= pg.mixer.Sound(f"./sounds/error.wav")
 error.set_volume(0.2)
 Partitura=""
@@ -50,8 +52,8 @@ lista_notas_1=[]
 lista_notas_2=[]
 lista_notas_3=[]
 centecimas=0
-score = 0
-
+score_player_1 = 0
+score_player_2 = 0
 def music_time():
     tiempo=pg.time.get_ticks()/100
     return tiempo
@@ -63,7 +65,7 @@ pg.time.set_timer(time_Music,100)
 def events(): 
     global Partitura , nota , play_song , centecimas 
     global lista_notas_0,lista_notas_1,lista_notas_2,lista_notas_3, error
-    global b1, b2, b3, b4, score
+    global b1, b2, b3, b4, score_player_1, score_player_2, posicion_cancion
     for event in pg.event.get():
         if event.type==pg.QUIT:
             pg.quit()
@@ -74,7 +76,9 @@ def events():
                 centecimas=music_time()
                 Partitura=open(f"data_{canciones[0]}.txt", "r")
                 play_song=True 
-                nota=Partitura.readline() 
+                nota=Partitura.readline()
+            if event.key==pg.K_LEFT:
+                posicion_cancion +=1 
         if play_song:
             if event.type==pg.KEYDOWN:          
                 if event.key == pg.K_q:
@@ -82,7 +86,7 @@ def events():
                     if len (lista_notas_0)>0:
                         if (lista_notas_0[0][1]>430 and lista_notas_0[0][1]<550):
                             lista_notas_0.pop(0)
-                            score+=10
+                            score_player_1+=10
                         else:
                         # print (lista_notas_0[0][1])
                             error.play()
@@ -95,7 +99,7 @@ def events():
                     if len (lista_notas_1)>0:
                         if (lista_notas_1[0][1]>430 and lista_notas_1[0][1]<550):
                             lista_notas_1.pop(0)
-                            score+=10
+                            score_player_1+=10
                         else:
                         # print (lista_notas_0[0][1])
                             error.play()
@@ -108,7 +112,7 @@ def events():
                     if len (lista_notas_2)>0:
                         if (lista_notas_2[0][1]>430 and lista_notas_2[0][1]<550):
                             lista_notas_2.pop(0)
-                            score+=10
+                            score_player_1+=10
                         else:
                         # print (lista_notas_0[0][1])
                             error.play()
@@ -120,7 +124,7 @@ def events():
                     if len (lista_notas_3)>0:
                         if (lista_notas_3[0][1]>430 and lista_notas_3[0][1]<550):
                             lista_notas_3.pop(0) 
-                            score+=10
+                            score_player_2+=10
                         else:
                             error.play()
                     else:
@@ -164,71 +168,84 @@ while True:
     events()
 
     screen.fill("White")
-    screen.blit(fondo,posicion)
-    screen.blit(boton1,posicion1)
-    screen.blit(boton2,posicion2)
-    screen.blit(boton3,posicion3)
-    screen.blit(boton4,posicion4)
+    if play_song:
+        
+        screen.blit(fondo,posicion)
+        screen.blit(boton1,posicion1)
+        screen.blit(boton2,posicion2)
+        screen.blit(boton3,posicion3)
+        screen.blit(boton4,posicion4)
 
-    if b1:
-        screen.blit(boton1_p,posicion1)
-    if b2:
-        screen.blit(boton2_p,posicion2)
-    if b3:
-        screen.blit(boton3_p,posicion3)
-    if b4:
-        screen.blit(boton4_p,posicion4)
+        if b1:
+            screen.blit(boton1_p,posicion1)
+        if b2:
+            screen.blit(boton2_p,posicion2)
+        if b3:
+            screen.blit(boton3_p,posicion3)
+        if b4:
+            screen.blit(boton4_p,posicion4)
 
-    if len (lista_notas_0)>0:
-        for i in range(len(lista_notas_0)):
-            screen.blit(nota1,lista_notas_0[i])
-            lista_notas_0[i][1]+=5
+        if len (lista_notas_0)>0:
+            for i in range(len(lista_notas_0)):
+                screen.blit(nota1,lista_notas_0[i])
+                lista_notas_0[i][1]+=5
 
-    if len (lista_notas_1)>0:
-        for i in range(len(lista_notas_1)):
-            screen.blit(nota2,lista_notas_1[i])
-            lista_notas_1[i][1]+=5
-    if len (lista_notas_2)>0:
-        for i in range(len(lista_notas_2)):
-            screen.blit(nota3,lista_notas_2[i])
-            lista_notas_2[i][1]+=5
+        if len (lista_notas_1)>0:
+            for i in range(len(lista_notas_1)):
+                screen.blit(nota2,lista_notas_1[i])
+                lista_notas_1[i][1]+=5
+        if len (lista_notas_2)>0:
+            for i in range(len(lista_notas_2)):
+                screen.blit(nota3,lista_notas_2[i])
+                lista_notas_2[i][1]+=5
 
-    if len (lista_notas_3)>0:
-        for i in range(len(lista_notas_3)):
-            screen.blit(nota4,lista_notas_3[i])
-            lista_notas_3[i][1]+=5
-    music_time()
-    text_score=tex_font.render(str(score),True,'Green')
-    screen.blit(barra_de_puntaje,(0,0))
-    screen.blit(text_score,(300,5))
-    pg.display.update()
-
-   
-    if len(lista_notas_0) !=0:
-        if lista_notas_0[0][1]>555:
-            lista_notas_0.pop(0)
-            error.play()
-    
-    if len(lista_notas_1) !=0:
-        if lista_notas_1[0][1]>555:
-            lista_notas_1.pop(0)
-            error.play()
-    
-    if len(lista_notas_2) !=0:
-        if lista_notas_2[0][1]>555:
-            lista_notas_2.pop(0)
-            error.play()
-    
-    if len(lista_notas_3) !=0:
-        if lista_notas_3[0][1]>555:
-            lista_notas_3.pop(0)
-            error.play()
-  
+        if len (lista_notas_3)>0:
+            for i in range(len(lista_notas_3)):
+                screen.blit(nota4,lista_notas_3[i])
+                lista_notas_3[i][1]+=5
+        music_time()
+        text_score1=tex_font.render(str(score_player_1),True,'White')
+        text_score2=tex_font.render(str(score_player_2),True,'White')
+        screen.blit(barra_de_puntaje,(0,0))
+        screen.blit(text_score1,(170,30))
+        screen.blit(text_score2,(600,30))
+        pg.display.update()
 
     
-    
+        if len(lista_notas_0) !=0:
+            if lista_notas_0[0][1]>555:
+                lista_notas_0.pop(0)
+                error.play()
+        
+        if len(lista_notas_1) !=0:
+            if lista_notas_1[0][1]>555:
+                lista_notas_1.pop(0)
+                error.play()
+        
+        if len(lista_notas_2) !=0:
+            if lista_notas_2[0][1]>555:
+                lista_notas_2.pop(0)
+                error.play()
+        
+        if len(lista_notas_3) !=0:
+            if lista_notas_3[0][1]>555:
+                lista_notas_3.pop(0)
+                error.play()
+    else:
+        #dibujo menu 
+        screen.blit(fondo_menu,(0,0))
+        texto_cancion=tex_font.render(canciones[0],True,'Black')
+        screen.blit(texto_cancion,[posicion_cancion*0,0])
+        texto_cancion=tex_font.render(canciones[1],True,'Black')
+        screen.blit(texto_cancion,[200*posicion_cancion,0])
+        
+        pg.display.update()
 
-    
+
+        
+        
+
+        
             
     clock.tick(60)
     # print (lista_notas_0)
