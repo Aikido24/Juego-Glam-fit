@@ -39,7 +39,7 @@ b3=False
 b4=False
 
 #canciones 
-canciones=["smooth","I’m-So-Sorry"]
+canciones=["smooth","I’m-So-Sorry","by-the-way"]
 numero_cancion=0
 pg.mixer.music.load(f"./audios/{canciones[numero_cancion]}.mp3")
 error= pg.mixer.Sound(f"./sounds/error.wav")
@@ -66,19 +66,27 @@ def events():
     global Partitura , nota , play_song , centecimas 
     global lista_notas_0,lista_notas_1,lista_notas_2,lista_notas_3, error
     global b1, b2, b3, b4, score_player_1, score_player_2, posicion_cancion
+    global numero_cancion
     for event in pg.event.get():
         if event.type==pg.QUIT:
             pg.quit()
             exit()
         if event.type==pg.KEYDOWN:
             if event.key==pg.K_SPACE:
-                pg.mixer.music.play()
+                pg.mixer.music.load(f"./audios/{canciones[numero_cancion]}.mp3")
+                
                 centecimas=music_time()
                 Partitura=open(f"data_{canciones[0]}.txt", "r")
                 play_song=True 
                 nota=Partitura.readline()
+                score_player_1=0
+                score_player_2=0
+                pg.mixer.music.play()
             if event.key==pg.K_LEFT:
                 posicion_cancion +=1 
+                numero_cancion +=1
+                if numero_cancion>= len(canciones):
+                    numero_cancion=0
         if play_song:
             if event.type==pg.KEYDOWN:          
                 if event.key == pg.K_q:
@@ -207,8 +215,8 @@ while True:
         text_score1=tex_font.render(str(score_player_1),True,'White')
         text_score2=tex_font.render(str(score_player_2),True,'White')
         screen.blit(barra_de_puntaje,(0,0))
-        screen.blit(text_score1,(170,30))
-        screen.blit(text_score2,(600,30))
+        screen.blit(text_score1,(180,30))
+        screen.blit(text_score2,(605,30))
         pg.display.update()
 
     
@@ -231,11 +239,14 @@ while True:
             if lista_notas_3[0][1]>555:
                 lista_notas_3.pop(0)
                 error.play()
+        play_song=(pg.mixer.music.get_busy())
     else:
         #dibujo menu 
         screen.blit(fondo_menu,(0,0))
         texto_cancion=tex_font.render(canciones[0],True,'Black')
-        screen.blit(texto_cancion,[posicion_cancion*0,0])
+        screen.blit(texto_cancion,[450,60])
+
+
         texto_cancion=tex_font.render(canciones[1],True,'Black')
         screen.blit(texto_cancion,[200*posicion_cancion,0])
         
