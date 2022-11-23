@@ -12,7 +12,7 @@ tex_font = pg.font.Font(None,50)
 fondo = pg.image.load('./imagenes/FONDO01.png').convert()
 
 posicion= (0,0)
-
+barra_de_puntaje=pg.image.load("./imagenes/BARRA VS.png").convert_alpha()
 boton1= pg.image.load('./imagenes/BOTONES/AZUL/01.png').convert_alpha()
 posicion1= (150,450)
 boton2= pg.image.load('./imagenes/BOTONES/NARANJA/01.png').convert_alpha()
@@ -199,6 +199,7 @@ while True:
             lista_notas_3[i][1]+=5
     music_time()
     text_score=tex_font.render(str(score),True,'Green')
+    screen.blit(barra_de_puntaje,(0,0))
     screen.blit(text_score,(300,5))
     pg.display.update()
 
