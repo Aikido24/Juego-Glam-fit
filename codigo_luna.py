@@ -7,9 +7,10 @@ size=(800,600)
 screen=pg.display.set_mode(size)
 clock=pg.time.Clock()
 posicion_cancion=0
-
+cambio=60
 #fondos
 tex_font = pg.font.Font(None,50)
+tex_font2 = pg.font.Font(None,40)
 fondo = pg.image.load('./imagenes/FONDO01.png').convert()
 fondo_menu=pg.image.load("./imagenes/MENU/BACKGROUN ROCK CLASS.png").convert_alpha()
 posicion= (0,0)
@@ -66,7 +67,7 @@ def events():
     global Partitura , nota , play_song , centecimas 
     global lista_notas_0,lista_notas_1,lista_notas_2,lista_notas_3, error
     global b1, b2, b3, b4, score_player_1, score_player_2, posicion_cancion
-    global numero_cancion
+    global numero_cancion, cambio
     for event in pg.event.get():
         if event.type==pg.QUIT:
             pg.quit()
@@ -82,11 +83,18 @@ def events():
                 score_player_1=0
                 score_player_2=0
                 pg.mixer.music.play()
-            if event.key==pg.K_LEFT:
+            if event.key==pg.K_UP:
                 posicion_cancion +=1 
                 numero_cancion +=1
+                cambio=0
                 if numero_cancion>= len(canciones):
                     numero_cancion=0
+            if event.key==pg.K_DOWN:
+                posicion_cancion -=1 
+                numero_cancion -=1
+                cambio=120
+                if numero_cancion<0:
+                    numero_cancion=len(canciones)-1
         if play_song:
             if event.type==pg.KEYDOWN:          
                 if event.key == pg.K_q:
@@ -170,7 +178,7 @@ def events():
                 #print(int(dibujo_nota[0]))
                
 
-
+aterior= 0
 
 while True:
     events()
@@ -242,13 +250,41 @@ while True:
         play_song=(pg.mixer.music.get_busy())
     else:
         #dibujo menu 
+        pg.draw.rect(screen,'#1B9C00',(448,55, 310, 43))
+        if cambio<60:
+            cambio+=1
+            aterior= numero_cancion - 1
+            if aterior< 0:
+                aterior = len(canciones)-1
+            
+
+            
+        if cambio>60:
+            cambio-=1
+            
+            aterior= numero_cancion + 1
+            if aterior>= len(canciones):
+                aterior = 0
+
+        pg.draw.rect(screen,'#67445E',(456,-60+cambio, 295, 30),0,3)
+        texto_cancion=tex_font2.render(canciones[aterior],True,'Black')
+        screen.blit(texto_cancion,[457,-60+cambio])
+            
+        pg.draw.rect(screen,'#67445E',(456,cambio, 295, 30),0,3)
+        texto_cancion=tex_font2.render(canciones[numero_cancion],True,'Black')
+        screen.blit(texto_cancion,[457,cambio])
+
+        pg.draw.rect(screen,'#67445E',(456,60+cambio, 295, 30),0,3)
+        texto_cancion=tex_font2.render(canciones[aterior],True,'Black')
+        screen.blit(texto_cancion,[457,60+cambio])
+
         screen.blit(fondo_menu,(0,0))
-        texto_cancion=tex_font.render(canciones[0],True,'Black')
-        screen.blit(texto_cancion,[450,60])
+        
+       
+        
 
 
-        texto_cancion=tex_font.render(canciones[1],True,'Black')
-        screen.blit(texto_cancion,[200*posicion_cancion,0])
+        
         
         pg.display.update()
 
