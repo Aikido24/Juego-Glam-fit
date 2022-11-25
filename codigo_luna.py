@@ -16,23 +16,31 @@ fondo_menu=pg.image.load("./imagenes/MENU/BACKGROUN ROCK CLASS.png").convert_alp
 posicion= (0,0)
 barra_de_puntaje=pg.image.load("./imagenes/BARRA VS.png").convert_alpha()
 boton1= pg.image.load('./imagenes/BOTONES/AZUL/01.png').convert_alpha()
-posicion1= (150,450)
+posicion1= (50,450)
 boton2= pg.image.load('./imagenes/BOTONES/NARANJA/01.png').convert_alpha()
-posicion2= (250,450)
+posicion2= (150,450)
 boton3= pg.image.load('./imagenes/BOTONES/ROJO/01.png').convert_alpha()
-posicion3= (350,450)
+posicion3= (250,450)
 boton4= pg.image.load('./imagenes/BOTONES/VERDE/01.png').convert_alpha()
-posicion4= (450,450)
+posicion4= (460,450)
+boton5= pg.image.load('./imagenes/BOTONES/AMARILLO/01.png').convert_alpha()
+posicion5= (560,450)
+boton6= pg.image.load('./imagenes/BOTONES/FUCCIA/01.png').convert_alpha()
+posicion6= (660,450)
 
 boton1_p= pg.image.load('./imagenes/BOTONES/AZUL/02.png').convert_alpha()
 boton2_p= pg.image.load('./imagenes/BOTONES/NARANJA/02.png').convert_alpha()
 boton3_p= pg.image.load('./imagenes/BOTONES/ROJO/02.png').convert_alpha()
 boton4_p= pg.image.load('./imagenes/BOTONES/VERDE/02.png').convert_alpha()
+boton5_p= pg.image.load('./imagenes/BOTONES/AMARILLO/02.png').convert_alpha()
+boton6_p= pg.image.load('./imagenes/BOTONES/FUCCIA/02.png').convert_alpha()
 
 nota1= pg.image.load('./imagenes/BOTONES/AZUL/03.png').convert_alpha()
 nota2= pg.image.load('./imagenes/BOTONES/NARANJA/03.png').convert_alpha()
 nota3= pg.image.load('./imagenes/BOTONES/ROJO/03.png').convert_alpha()
 nota4= pg.image.load('./imagenes/BOTONES/VERDE/03.png').convert_alpha()
+nota5= pg.image.load('./imagenes/BOTONES/AMARILLO/03.png').convert_alpha()
+nota6= pg.image.load('./imagenes/BOTONES/FUCCIA/03.png').convert_alpha()
 fuego=[]
 for i in range(33):
     fuego.append(pg.image.load(f'./imagenes/fuego/{i}.png').convert_alpha())
@@ -41,7 +49,8 @@ b1=False
 b2=False
 b3=False
 b4=False
-
+b5=False
+b6=False
 #canciones 
 canciones=["smooth","I’m-So-Sorry","by-the-way"]
 numero_cancion=0
@@ -55,6 +64,8 @@ lista_notas_0=[]
 lista_notas_1=[]
 lista_notas_2=[]
 lista_notas_3=[]
+lista_notas_4=[]
+lista_notas_5=[]
 centecimas=0
 score_player_1 = 0
 score_player_2 = 0
@@ -70,7 +81,8 @@ pg.time.set_timer(time_Music,100)
 def events(): 
     global Partitura , nota , play_song , centecimas 
     global lista_notas_0,lista_notas_1,lista_notas_2,lista_notas_3, error
-    global b1, b2, b3, b4, score_player_1, score_player_2, posicion_cancion
+    global b1, b2, b3, b4, b5, b6
+    global score_player_1, score_player_2, posicion_cancion
     global numero_cancion, cambio
     for event in pg.event.get():
         if event.type==pg.QUIT:
@@ -102,7 +114,7 @@ def events():
                 cambio=120
                 if numero_cancion<0:
                     numero_cancion=len(canciones)-1
-                #********************************
+                
                 pg.mixer.music.stop()
                 pg.mixer.music.load(f"./audios/{canciones[numero_cancion]}.mp3")
                 pg.mixer.music.play()
@@ -115,11 +127,10 @@ def events():
                             lista_notas_0.pop(0)
                             score_player_1+=10
                         else:
-                        # print (lista_notas_0[0][1])
                             error.play()
                         
                     else:
-                        # print (lista_notas_0[0][1])
+                        score_player_1-=3
                         error.play()
                 if event.key == pg.K_w:
                     b2 = True
@@ -128,11 +139,10 @@ def events():
                             lista_notas_1.pop(0)
                             score_player_1+=10
                         else:
-                        # print (lista_notas_0[0][1])
                             error.play()
                         
                     else:
-                        # print (lista_notas_0[0][1])
+                        score_player_1-=3
                         error.play()
                 if event.key == pg.K_e:
                     b3 = True
@@ -141,12 +151,11 @@ def events():
                             lista_notas_2.pop(0)
                             score_player_1+=10
                         else:
-                        # print (lista_notas_0[0][1])
                             error.play()
                     else:
-                        # print (lista_notas_0[0][1])
+                        score_player_1-=3
                         error.play()
-                if event.key == pg.K_r:
+                if event.key == pg.K_u:
                     b4 = True
                     if len (lista_notas_3)>0:
                         if (lista_notas_3[0][1]>430 and lista_notas_3[0][1]<550):
@@ -155,7 +164,31 @@ def events():
                         else:
                             error.play()
                     else:
+                        score_player_2-=3
                         error.play()
+                if event.key == pg.K_i:
+                    b5 = True
+                    if len (lista_notas_4)>0:
+                        if (lista_notas_4[0][1]>430 and lista_notas_4[0][1]<550):
+                            lista_notas_4.pop(0) 
+                            score_player_2+=10
+                        else:
+                            error.play()
+                    else:
+                        score_player_2-=3
+                        error.play()
+                if event.key == pg.K_o:
+                    b6 = True
+                    if len (lista_notas_5)>0:
+                        if (lista_notas_5[0][1]>430 and lista_notas_5[0][1]<550):
+                            lista_notas_5.pop(0) 
+                            score_player_2+=10
+                        else:
+                            error.play()
+                    else:
+                        score_player_2-=3
+                        error.play()
+
             if event.type==pg.KEYUP:
                 if event.key == pg.K_q:
                     b1 = False 
@@ -163,8 +196,12 @@ def events():
                     b2 = False 
                 if event.key == pg.K_e:
                     b3 = False 
-                if event.key == pg.K_r:
+                if event.key == pg.K_u:
                     b4 = False 
+                if event.key == pg.K_i:
+                    b5 = False 
+                if event.key == pg.K_o:
+                    b6 = False 
 
             if event.type==time_Music:
                 numero=music_time()-centecimas
@@ -173,16 +210,18 @@ def events():
                     if int(dibujo_nota[0])-20<= int(numero):
 
                         if dibujo_nota[1] =="0\n":
-                            lista_notas_0.append([150,0])
+                            lista_notas_0.append([posicion1[0],0])
+                            lista_notas_3.append([posicion4[0],0])
                         
                         if dibujo_nota[1] =="1\n":
-                            lista_notas_1.append([250,0]) 
+                            lista_notas_1.append([posicion2[0],0]) 
+                            lista_notas_4.append([posicion5[0],0])
                         
                         if dibujo_nota[1] =="2\n":
-                            lista_notas_2.append([350,0])
+                            lista_notas_2.append([posicion3[0],0])
+                            lista_notas_5.append([posicion6[0],0])
                             
-                        if dibujo_nota[1] =="3\n":
-                            lista_notas_3.append([450,0])
+                            
                         
                         nota=Partitura.readline()    
                     # print(nota)
@@ -201,8 +240,10 @@ while True:
         screen.blit(boton1,posicion1)
         screen.blit(boton2,posicion2)
         screen.blit(boton3,posicion3)
+        #player 2
         screen.blit(boton4,posicion4)
-
+        screen.blit(boton5,posicion5)
+        screen.blit(boton6,posicion6)
         if b1:
             screen.blit(boton1_p,posicion1)
         if b2:
@@ -211,6 +252,10 @@ while True:
             screen.blit(boton3_p,posicion3)
         if b4:
             screen.blit(boton4_p,posicion4)
+        if b5:
+            screen.blit(boton5_p,posicion5)
+        if b6:
+            screen.blit(boton6_p,posicion6)
 
         if len (lista_notas_0)>0:
             for i in range(len(lista_notas_0)):
@@ -221,6 +266,7 @@ while True:
             for i in range(len(lista_notas_1)):
                 screen.blit(nota2,lista_notas_1[i])
                 lista_notas_1[i][1]+=5
+
         if len (lista_notas_2)>0:
             for i in range(len(lista_notas_2)):
                 screen.blit(nota3,lista_notas_2[i])
@@ -230,6 +276,17 @@ while True:
             for i in range(len(lista_notas_3)):
                 screen.blit(nota4,lista_notas_3[i])
                 lista_notas_3[i][1]+=5
+        
+        if len (lista_notas_4)>0:
+            for i in range(len(lista_notas_4)):
+                screen.blit(nota5,lista_notas_4[i])
+                lista_notas_4[i][1]+=5
+        
+        if len (lista_notas_5)>0:
+            for i in range(len(lista_notas_5)):
+                screen.blit(nota6,lista_notas_5[i])
+                lista_notas_5[i][1]+=5
+
         music_time()
         text_score1=tex_font.render(str(score_player_1),True,'White')
         text_score2=tex_font.render(str(score_player_2),True,'White')
@@ -258,7 +315,20 @@ while True:
             if lista_notas_3[0][1]>555:
                 lista_notas_3.pop(0)
                 error.play()
+        
+        if len(lista_notas_4) !=0:
+            if lista_notas_4[0][1]>555:
+                lista_notas_4.pop(0)
+                error.play()
+
+        if len(lista_notas_5) !=0:
+            if lista_notas_5[0][1]>555:
+                lista_notas_5.pop(0)
+                error.play()
+        
+        
         play_song=(pg.mixer.music.get_busy())
+
     else:
         #dibujo menu 
         pg.draw.rect(screen,'#1B9C00',(448,55, 310, 43))
@@ -298,7 +368,15 @@ while True:
         if anime_fuego >= len(fuego):
             anime_fuego=0
         
-
+        if not pg.mixer.music.get_busy():
+            posicion_cancion +=1 
+            numero_cancion +=1
+            cambio=0
+            if numero_cancion>= len(canciones):
+                numero_cancion=0
+            pg.mixer.music.stop()
+            pg.mixer.music.load(f"./audios/{canciones[numero_cancion]}.mp3")
+            pg.mixer.music.play()
 
         
         
