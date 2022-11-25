@@ -18,12 +18,10 @@ data = open(f"data_{song}.txt", "a")
 button1 =False
 button2 =False
 button3 =False
-button4 =False
-button5 =False
-button6 =False
+
 #Funcion de eventos#
 def events():
-    global button1 , button2 , button3 , button4 , button5 , button6
+    global button1 , button2 , button3 
     for event in pg.event.get():
         if event.type==pg.QUIT:
             pg.quit()
@@ -49,31 +47,23 @@ def events():
                 button2 =False
             if event.key == pg.K_e:
                 button3 =False
-            if event.key == pg.K_r:
-                button4 =False
+           
 pg.mixer.music.play()
 while True:
     events()
 
     screen.fill("White")
-    pg.draw.circle(screen,'Red',(50,500),50)
-    pg.draw.circle(screen,'Red',(170,500),50)
-    pg.draw.circle(screen,'Red',(290,500),50)
-    pg.draw.circle(screen,'Red',(510,500),50)
-    pg.draw.circle(screen,'Red',(630,500),50)
-    pg.draw.circle(screen,'Red',(750,500),50)
+    pg.draw.circle(screen,'Red',(150,500),50)
+    pg.draw.circle(screen,'Red',(400,500),50)
+    pg.draw.circle(screen,'Red',(650,500),50)
+    
     if button1:
-        pg.draw.circle(screen,'#C71EE8',(50,500),50)
+        pg.draw.circle(screen,'#C71EE8',(150,500),50)
     if button2:
-        pg.draw.circle(screen,'#F28C1F',(170,500),50)
+        pg.draw.circle(screen,'#F28C1F',(400,500),50)
     if button3:
-        pg.draw.circle(screen,'#561FF2',(290,500),50)
-    if button4:
-        pg.draw.circle(screen,'#561FF2',(510,500),50)
-    if button5:
-        pg.draw.circle(screen,'#C71EE8',(630,500),50)
-    if button6:
-        pg.draw.circle(screen,'#F28C1F',(750,500),50)
+        pg.draw.circle(screen,'#561FF2',(650,500),50)
+
     pg.display.update()
     
 
