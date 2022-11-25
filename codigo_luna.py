@@ -12,6 +12,7 @@ cambio=60
 tex_font = pg.font.Font(None,50)
 tex_font2 = pg.font.Font(None,40)
 fondo = pg.image.load('./imagenes/FONDO01.png').convert()
+fondo_credito = pg.image.load('./imagenes/MENU/CREDITOS ROCK CLASS.png').convert()
 fondo_menu=pg.image.load("./imagenes/MENU/BACKGROUN ROCK CLASS.png").convert_alpha()
 posicion= (0,0)
 barra_de_puntaje=pg.image.load("./imagenes/BARRA VS.png").convert_alpha()
@@ -45,6 +46,19 @@ fuego=[]
 for i in range(33):
     fuego.append(pg.image.load(f'./imagenes/fuego/{i}.png').convert_alpha())
 anime_fuego=0
+creditos=['Director artístico:','Santiago Troncoso Fernández','Jefe de Progrmadores:','Justo Soto M','Programadores:','Luna']
+tex_credito=[]
+po_credito= []
+anime_credito= 0
+credito_v = False
+for h in creditos:
+    tex_credito.append(tex_font2.render(h,True,'White'))
+
+for h in range(len(tex_credito)):
+    print(50*h)
+    po_credito.append(tex_credito[h].get_rect(midtop=(400,600+(50*h))))
+
+
 b1=False
 b2=False
 b3=False
@@ -328,8 +342,11 @@ while True:
         
         
         play_song=(pg.mixer.music.get_busy())
+        if not play_song:
+            credito_v = True
 
     else:
+
         #dibujo menu 
         pg.draw.rect(screen,'#1B9C00',(448,55, 310, 43))
         if cambio<60:
@@ -378,8 +395,19 @@ while True:
             pg.mixer.music.load(f"./audios/{canciones[numero_cancion]}.mp3")
             pg.mixer.music.play()
 
-        
-        
+        #Creditos:
+        if credito_v:
+            screen.blit(fondo_credito,(0,0))
+            anime_credito-=0.009
+            for i in range(len(tex_credito)):
+                screen.blit(tex_credito[i],po_credito[i])
+                po_credito[i].top+=int(anime_credito)
+            if po_credito[len(po_credito)-1].bottom<-50:
+                for h in range(len(tex_credito)):
+                    print(50*h)
+                    po_credito[h].midtop=(400,600+(50*h))
+                credito_v = False
+
         pg.display.update()
 
 
