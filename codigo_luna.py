@@ -33,7 +33,10 @@ nota1= pg.image.load('./imagenes/BOTONES/AZUL/03.png').convert_alpha()
 nota2= pg.image.load('./imagenes/BOTONES/NARANJA/03.png').convert_alpha()
 nota3= pg.image.load('./imagenes/BOTONES/ROJO/03.png').convert_alpha()
 nota4= pg.image.load('./imagenes/BOTONES/VERDE/03.png').convert_alpha()
-
+fuego=[]
+for i in range(33):
+    fuego.append(pg.image.load(f'./imagenes/fuego/{i}.png').convert_alpha())
+anime_fuego=0
 b1=False
 b2=False
 b3=False
@@ -55,6 +58,7 @@ lista_notas_3=[]
 centecimas=0
 score_player_1 = 0
 score_player_2 = 0
+pg.mixer.music.play()
 def music_time():
     tiempo=pg.time.get_ticks()/100
     return tiempo
@@ -89,12 +93,19 @@ def events():
                 cambio=0
                 if numero_cancion>= len(canciones):
                     numero_cancion=0
+                pg.mixer.music.stop()
+                pg.mixer.music.load(f"./audios/{canciones[numero_cancion]}.mp3")
+                pg.mixer.music.play()
             if event.key==pg.K_DOWN:
                 posicion_cancion -=1 
                 numero_cancion -=1
                 cambio=120
                 if numero_cancion<0:
                     numero_cancion=len(canciones)-1
+                #********************************
+                pg.mixer.music.stop()
+                pg.mixer.music.load(f"./audios/{canciones[numero_cancion]}.mp3")
+                pg.mixer.music.play()
         if play_song:
             if event.type==pg.KEYDOWN:          
                 if event.key == pg.K_q:
@@ -278,9 +289,14 @@ while True:
         texto_cancion=tex_font2.render(canciones[aterior],True,'Black')
         screen.blit(texto_cancion,[457,60+cambio])
 
-        screen.blit(fondo_menu,(0,0))
         
-       
+        screen.blit(fondo_menu,(0,0))
+        screen.blit(fuego[int(anime_fuego)],(-5,400))
+        screen.blit(fuego[int(anime_fuego)],(600,400))
+        anime_fuego+=0.6
+
+        if anime_fuego >= len(fuego):
+            anime_fuego=0
         
 
 
