@@ -66,7 +66,7 @@ b4=False
 b5=False
 b6=False
 #canciones 
-canciones=["smooth","I’m-So-Sorry","by-the-way"]
+canciones=["I’m-So-Sorry","Iron-Man","smooth","by-the-way","Arctic-Monkeys-Brianstorm"]
 numero_cancion=0
 pg.mixer.music.load(f"./audios/{canciones[numero_cancion]}.mp3")
 error= pg.mixer.Sound(f"./sounds/error.wav")
@@ -105,7 +105,6 @@ def events():
         if event.type==pg.KEYDOWN:
             if event.key==pg.K_SPACE:
                 pg.mixer.music.load(f"./audios/{canciones[numero_cancion]}.mp3")
-                
                 centecimas=music_time()
                 Partitura=open(f"data_{canciones[0]}.txt", "r")
                 play_song=True 
@@ -409,12 +408,6 @@ while True:
                 credito_v = False
 
         pg.display.update()
-
-
-        
-        
-
-        
             
     clock.tick(60)
     # print (lista_notas_0)
